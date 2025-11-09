@@ -35,6 +35,18 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets_frontend/css/material-kit.css?v=3.1.0') }}" rel="stylesheet" />
     @stack('css')
+    <style>
+        .nav-link.active,
+        .dropdown-item.active {
+            color: #007bff !important;
+            font-weight: bold;
+        }
+
+        .nav-link.active i,
+        .dropdown-item.active i {
+            color: #007bff !important;
+        }
+    </style>
 </head>
 
 <body class="index-page bg-gray-200">
@@ -232,20 +244,21 @@
                                 </li>
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a href="/seminar"
-                                        class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold">
+                                        class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold {{ request()->Routeis('seminar') ? 'active' : '' }}">
                                         <i class="material-symbols-rounded opacity-6 me-2 text-md">event</i>
                                         Seminar
                                     </a>
                                 </li>
+                                @auth
                                 <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
+                                    <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold {{ request()->Routeis('profile') ? 'active' : '' }}"
                                         id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="material-symbols-rounded opacity-6 me-2 text-md">contacts</i>
                                         Account
                                         <img src="{{ asset('assets_frontend/img/down-arrow-dark.svg') }}"
                                             alt="down-arrow" class="arrow ms-auto ms-md-2">
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3"
+                                    <ul class="dropdown-menu dropdown-menu-animation dropdown-sm dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3"
                                         aria-labelledby="dropdownMenuBlocks">
                                         <div class="d-none d-lg-block">
                                             <h6
@@ -255,9 +268,13 @@
                                             <a href="/profile" class="dropdown-item border-radius-md">
                                                 <span>Profile</span>
                                             </a>
-                                            <a href="#" class="dropdown-item border-radius-md">
-                                                <span>Logout</span>
-                                            </a>
+                                            <form action="{{ route('logout') }}" method="POST" class="w-100">
+                                                @csrf
+                                                <button
+                                                    class="dropdown-item border-radius-md align-items-center border-0 bg-transparent text-start w-100">
+                                                    <span>Logout</span>
+                                                </button>
+                                            </form>
                                         </div>
                                         <div class="row d-lg-none">
                                             <div class="col-md-12">
@@ -284,22 +301,28 @@
                                                     </div>
                                                     <div
                                                         class="w-100 d-flex align-items-center justify-content-between">
-                                                        <a href="#">
-                                                            <div>
-                                                                <h6
-                                                                    class="dropdown-header d-flex justify-content-cente align-items-center p-0">
-                                                                    Logout</h6>
-                                                            </div>
-                                                        </a>
+                                                        <form action="{{ route('logout') }}" method="POST"
+                                                            class="w-100">
+                                                            @csrf
+                                                            <button
+                                                                class="dropdown-item d-flex align-items-center p-0 border-0 bg-transparent text-start w-100">
+                                                                <h7 class="m-0">Logout</h7>
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </ul>
                                 </li>
+                                @else
                                 <li class="nav-item my-auto ms-3 ms-lg-0">
-                                    <a href="#" class="btn  bg-gradient-dark  mb-0 mt-2 mt-md-0">Login</a>
+                                    <a href="{{ route('login') }}"
+                                        class="btn  bg-gradient-dark  mb-0 mt-2 mt-md-0">Login</a>
                                 </li>
+                                @endauth
+
+
                             </ul>
                         </div>
                     </div>
@@ -314,7 +337,7 @@
     <footer class="footer pt-5 mt-5">
         <div class="container">
             <div class=" row">
-                <div class="col-md-3 mb-4 ms-auto">
+                {{-- <div class="col-md-3 mb-4 ms-auto">
                     <div>
                         <a href="https://www.creative-tim.com/product/material-kit">
                             <img src="{{ asset('assets_frontend/img/logo-ct-dark.png') }}" class="mb-3 footer-logo"
@@ -456,13 +479,13 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12">
                     <div class="text-center">
                         <p class="text-dark my-4 text-sm font-weight-normal">
                             All rights reserved. Copyright © <script>
                                 document.write(new Date().getFullYear())
-                            </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative
+                            </script> Material Kit by <a href="#">Creative
                                 Tim</a>.
                         </p>
                     </div>

@@ -21,6 +21,8 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'no_tlp' => 'required|string|max:20',
             'password' => 'required|min:6|confirmed',
+            'city_of_practice' => 'required|string|max:100',
+            'institution_of_practice' => 'required|in:Apotek,Rumah Sakit,Industri,Pemerintah (Dinkes, BPOM, Puskesmas, dll)',
         ]);
 
         User::create([
@@ -28,6 +30,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'no_tlp' => '+62' . ltrim($request->no_tlp, '0'),
             'password' => Hash::make($request->password),
+            'city_of_practice' => $request->city_of_practice,
+            'institution_of_practice' => $request->institution_of_practice,
         ]);
 
         return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
@@ -44,7 +48,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/');
+            return redirect('/seminar');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);
@@ -55,6 +59,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/homepage');
     }
 }

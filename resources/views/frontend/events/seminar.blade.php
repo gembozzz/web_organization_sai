@@ -52,68 +52,51 @@
                     </p>
                 </div>
             </div>
-
             <div class="row">
                 <!-- Contoh 1 -->
+                @foreach ($seminars as $seminar)
                 <div class="col-lg-4 col-md-6 mb-5">
                     <div class="card seminar-card border-0 shadow-sm h-100">
-                        <img src="{{ asset('assets_frontend/img/apoteker-2.png') }}" class="card-img-top"
-                            alt="Seminar 1">
+                        @if ($seminar->banner)
+                        <img src="{{ asset('storage/' . $seminar->banner) }}" class="card-img-top"
+                            alt="{{ $seminar->title }}" style="height: 220px; object-fit: cover;">
+                        @else
+                        <div class="bg-light d-flex justify-content-center align-items-center" style="height: 220px;">
+                            <span class="text-muted">Tidak ada banner</span>
+                        </div>
+                        @endif
                         <div class="card-body">
-                            <h5 class="fw-bold text-dark">Seminar Nasional Kefarmasian 2025</h5>
+                            <h5 class="fw-bold text-dark">{{ $seminar->title }}</h5>
                             <p class="text-muted mb-3">
-                                20 Januari 2025 — Hotel Horizon Karawang
+                                Pendaftararan mulai :<br> {{ \Carbon\Carbon::parse($seminar->start_at)->format('d M
+                                Y,
+                                H:i')
+                                }}
+                                - {{
+                                \Carbon\Carbon::parse($seminar->end_at)->format('d M Y, H:i') }} — {{ $seminar->location
+                                }}
                             </p>
                             <p class="text-sm p-horizontal">
-                                Mengangkat tema “Digitalisasi Layanan Farmasi untuk Indonesia Sehat”.
+                                {!! Str::limit($seminar->description, 90) !!}
                             </p>
                         </div>
+                        @if ($seminar->registrations->isNotEmpty() && $seminar->registrations->first()->status ==
+                        'approved')
                         <div class="card-footer bg-transparent border-0 text-center">
-                            <a href="#" class="btn bg-gradient-info btn-sm">Daftar Seminar</a>
+                            <a href="{{ route('seminar.show', $seminar->id) }}" class="btn bg-gradient-success btn-sm">
+                                Anda sudah terdaftar
+                            </a>
                         </div>
+                        @else
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="{{ route('seminar.show', $seminar->id) }}" class="btn bg-gradient-info btn-sm">
+                                Daftar Seminar
+                            </a>
+                        </div>
+                        @endif
                     </div>
                 </div>
-
-                <!-- Contoh 2 -->
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="card seminar-card border-0 shadow-sm h-100">
-                        <img src="{{ asset('assets_frontend/img/apoteker-3.png') }}" class="card-img-top"
-                            alt="Seminar 2">
-                        <div class="card-body">
-                            <h5 class="fw-bold text-dark">Pelatihan CPD Apoteker 2025</h5>
-                            <p class="text-muted mb-3">
-                                5 Februari 2025 — Online via Zoom
-                            </p>
-                            <p class="text-sm p-horizontal">
-                                Pelatihan berbasis kompetensi untuk meningkatkan keahlian dalam praktik farmasi klinik.
-                            </p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 text-center">
-                            <a href="#" class="btn bg-gradient-success btn-sm">Daftar Seminar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contoh 3 -->
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="card seminar-card border-0 shadow-sm h-100">
-                        <img src="{{ asset('assets_frontend/img/apoteker-4.png') }}" class="card-img-top"
-                            alt="Seminar 3">
-                        <div class="card-body">
-                            <h5 class="fw-bold text-dark">Workshop Farmasi Industri</h5>
-                            <p class="text-muted mb-3">
-                                10 Maret 2025 — Bandung, Jawa Barat
-                            </p>
-                            <p class="text-sm p-horizontal">
-                                Pelatihan mendalam terkait produksi obat, CPOB, dan manajemen mutu dalam industri
-                                farmasi.
-                            </p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 text-center">
-                            <a href="#" class="btn bg-gradient-warning btn-sm">Daftar Seminar</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <!-- Pagination -->

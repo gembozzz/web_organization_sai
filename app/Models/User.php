@@ -25,6 +25,8 @@ class User extends Authenticatable implements FilamentUser
         'no_tlp',
         'role',
         'password',
+        'city_of_practice',
+        'institution_of_practice',
     ];
 
     /**

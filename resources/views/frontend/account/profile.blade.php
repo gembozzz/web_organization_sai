@@ -87,32 +87,38 @@
                 <div class="data-row">
                     <div class="data-label">Nama</div>
                     <div class="data-separator">:</div>
-                    <div class="data-value">Michael Roven</div>
+                    <div class="data-value">{{ $profile->name }}</div>
+                </div>
+
+                <div class="data-row">
+                    <div class="data-label">Email</div>
+                    <div class="data-separator">:</div>
+                    <div class="data-value">{{ $profile->email }}</div>
                 </div>
 
                 <div class="data-row">
                     <div class="data-label">No. WhatsApp</div>
                     <div class="data-separator">:</div>
-                    <div class="data-value">+62 812 3456 7890</div>
+                    <div class="data-value">{{ $profile->no_tlp }}</div>
                 </div>
 
                 <div class="data-row">
                     <div class="data-label">Kota Tempat Praktek</div>
                     <div class="data-separator">:</div>
-                    <div class="data-value">Karawang</div>
+                    <div class="data-value">{{ $profile->city_of_practice }}</div>
                 </div>
 
                 <div class="data-row">
                     <div class="data-label">Institusi Praktek</div>
                     <div class="data-separator">:</div>
-                    <div class="data-value">Apotek</div>
+                    <div class="data-value">{{ $profile->institution_of_practice }}</div>
                 </div>
 
-                <div class="text-center text-md-start mt-4">
+                {{-- <div class="text-center text-md-start mt-4">
                     <a href="javascript:;" class="btn btn-outline-info btn-sm">
                         Edit Data
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

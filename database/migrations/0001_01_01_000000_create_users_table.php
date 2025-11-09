@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('role')->default('user');
             $table->string('password');
+            $table->string('city_of_practice');
+            $table->enum('institution_of_practice', ['Apotek', 'Rumah Sakit', 'Industri', 'Pemerintah (Dinkes, BPOM, Puskesmas, dll)']);
             $table->rememberToken();
             $table->timestamps();
         });
