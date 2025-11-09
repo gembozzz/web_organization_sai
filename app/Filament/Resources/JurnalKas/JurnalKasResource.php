@@ -9,7 +9,7 @@ use App\Filament\Resources\JurnalKas\Pages\ViewJurnalKas;
 use App\Filament\Resources\JurnalKas\Schemas\JurnalKasForm;
 use App\Filament\Resources\JurnalKas\Schemas\JurnalKasInfolist;
 use App\Filament\Resources\JurnalKas\Tables\JurnalKasTable;
-use App\Models\JurnalKas;
+use App\Models\Jurnalkas;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
