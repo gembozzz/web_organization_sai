@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | SPAI</title>
-    <link rel="stylesheet" href="{{ asset('assets_auth/style.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets_auth/style.css') }}?v={{ filemtime(public_path('assets_auth/style.css')) }}">
 </head>
 
 <body>
@@ -131,8 +132,9 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets_auth/form-utils.js') }}"></script>
-    <script src="{{ asset('assets_auth/script.js') }}"></script>
+    <script src="{{ asset('assets_auth/form-utils.js') }}?v={{ filemtime(public_path('assets_auth/form-utils.js')) }}">
+    </script>
+    <script src="{{ asset('assets_auth/script.js') }}?v={{ filemtime(public_path('assets_auth/script.js')) }}"></script>
 </body>
 
 </html>
