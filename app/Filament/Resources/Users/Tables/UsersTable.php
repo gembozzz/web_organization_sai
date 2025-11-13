@@ -31,6 +31,11 @@ class UsersTable
                     ->searchable()
                     ->limit(50)
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('city_of_practice')
+                    ->label('Kota Praktik')
+                    ->searchable()
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('kampus')
                     ->label('Kampus')
                     ->searchable(),

@@ -29,7 +29,10 @@ class UserForm
                     ->label('No. Telepon')
                     ->required()
                     ->maxLength(20),
-
+                TextInput::make('city_of_practice')
+                    ->label('Kota Praktik')
+                    ->required()
+                    ->maxLength(255),
                 TextArea::make('alamat')
                     ->required()
                     ->maxLength(500),
