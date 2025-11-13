@@ -22,11 +22,12 @@ class RegistrationsTable
                     ->label('User')
                     ->sortable()
                     ->searchable(),
-                
+
                 TextColumn::make('phone')
                     ->label('No. Telepon')
-                    ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->url(fn($record) => 'https://api.whatsapp.com/send?phone=' . preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $record->phone)))
+                    ->openUrlInNewTab(),
 
                 TextColumn::make('event.title')
                     ->label('Event')
