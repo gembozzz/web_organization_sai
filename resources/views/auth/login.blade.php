@@ -120,7 +120,7 @@
                 <p>Belum punya akun? <a href="{{ route('register') }}">Daftar</a></p>
             </div>
 
-            <div class="success-message" id="successMessage">
+            {{-- <div class="success-message" id="successMessage">
                 <div class="success-icon neu-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                         <polyline points="20 6 9 17 4 12" />
@@ -128,7 +128,7 @@
                 </div>
                 <h3>Berhasil!</h3>
                 <p>Mengarahkan ke halaman beranda Anda...</p>
-            </div>
+            </div> --}}
         </div>
     </div>
 
