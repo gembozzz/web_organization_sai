@@ -16,4 +16,10 @@ class EditRegistration extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return RegistrationResource::getUrl('index');
+        // atau: return RegistrationResource::getUrl('index');
+    }
 }
