@@ -71,7 +71,8 @@ class UserResource extends Resource
     {
         $query = parent::getEloquentQuery();
         // hanya ambil user dengan role admin
-        return parent::getEloquentQuery()->where('role', 'admin');
+        return parent::getEloquentQuery()
+            ->whereIn('role', ['wakil_ketua', 'ketua', 'sekretaris', 'bendahara']);
 
         // Sembunyikan user dengan role admin
         return $query->where('role', '!=', 'admin');
