@@ -18,8 +18,29 @@ class JurnalKasForm
     {
         $tipe = Str::upper(request()->query('tipe', ''));
         return $schema->components([
+            TextInput::make('nama')
+                ->label('Nama Donatur')
+                ->required()
+                ->placeholder('Masukkan nama donatur'),
+            TextInput::make('no_tlp')
+                ->label('No. Telepon')
+                ->required()
+                ->placeholder('Masukkan nomor telepon'),
+            TextInput::make('email')
+                ->label('Email')
+                ->required()
+                ->email()
+                ->placeholder('Masukkan email'),
             DatePicker::make('tanggal')
                 ->label('Tanggal')
+                ->required(),
+            Select::make('status')
+                ->options([
+                    'waiting_approval' => 'Waiting approval',
+                    'approved' => 'Approved',
+                    'rejected' => 'Rejected',
+                ])
+                ->default('waiting_approval')
                 ->required(),
             // Ambil data jenis transaksi dari tabel jenis_transaksi
             Textarea::make('keterangan')
@@ -56,7 +77,8 @@ class JurnalKasForm
                 ->required(),
             // Petugas otomatis dari user login
             Hidden::make('petugas')
-                ->default(fn() => Auth::id()),
+                ->default(fn() => Auth::id())
+                ->dehydrateStateUsing(fn($state) => $state ?? Auth::id()),
         ]);
     }
 }

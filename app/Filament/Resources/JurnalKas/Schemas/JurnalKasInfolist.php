@@ -11,10 +11,24 @@ class JurnalKasInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('nama')
+                    ->label('Nama Donatur'),
+                TextEntry::make('no_tlp')
+                    ->label('No. Telepon'),
+                TextEntry::make('email')
+                    ->label('Email'),
+                TextEntry::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'waiting_approval' => 'warning',
+                        'approved'         => 'success',
+                        'rejected'         => 'danger',
+                        default            => 'secondary',
+                    }),
                 TextEntry::make('tanggal')
                     ->label('Tanggal')
                     ->date(),
-
                 TextEntry::make('keterangan')
                     ->label('Keterangan'),
 

@@ -6,13 +6,19 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SeminarController;
 use App\Http\Controllers\RegistrationController;
-
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\HomepageController;
 
 
 Route::get('/events/{event}', [EventController::class, 'show'])->middleware('auth')->name('events.show');
 Route::post('/events/{event}/register', [RegistrationController::class, 'store'])->middleware('auth')->name('events.register');
 
 
+
+Route::get('/donasi', [DonasiController::class, 'create'])->name('donasi.create');
+Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
+Route::get('/donatur', [DonasiController::class, 'getdonatur'])->name('donatur.index');
+Route::get('/donasi/thankyou', [DonasiController::class, 'thankyou'])->name('donasi.thankyou');
 
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -21,14 +27,9 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/', function () {
-    return view('frontend.homepage.index');
-})->name('homepage');
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
-Route::get('/homepage', function () {
-    return view('frontend.homepage.index');
-})->name('homepage');
-
+Route::get('/homepage', [HomepageController::class, 'index'])->name('homepage');
 Route::get('/history', function () {
     return view('frontend.about.history');
 })->name('history');

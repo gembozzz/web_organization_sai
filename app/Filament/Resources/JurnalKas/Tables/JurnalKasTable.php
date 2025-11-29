@@ -10,11 +10,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
 use App\Models\JurnalKas;
+use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Support\Carbon;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\DatePicker;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use Filament\Actions\BulkAction;
+use Illuminate\Support\Collection;
+use Filament\Tables\Filters\SelectFilter;
 
 class JurnalKasTable
 {
@@ -25,6 +29,15 @@ class JurnalKasTable
 
         return $table
             ->columns([
+                TextColumn::make('nama')
+                    ->label('Nama Donatur')
+                    ->searchable(),
+                TextColumn::make('no_tlp')
+                    ->label('No. Telepon')
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable(),
                 TextColumn::make('tanggal')
                     ->date()
                     ->sortable(),
@@ -42,6 +55,15 @@ class JurnalKasTable
                 TextColumn::make('nominal')
                     ->label('Nominal')
                     ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.')),
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->badge() // tampilkan sebagai badge
+                    ->color(fn(string $state): string => match ($state) {
+                        'waiting_approval' => 'warning',
+                        'approved'         => 'success',
+                        'rejected'         => 'danger',
+                        default            => 'secondary',
+                    }),
                 TextColumn::make('metode')
                     ->badge(),
                 TextColumn::make('created_at')
@@ -54,6 +76,13 @@ class JurnalKasTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'waiting_approval' => 'Waiting Approval',
+                        'approved'         => 'Approved',
+                        'rejected'         => 'Rejected',
+                    ]),
                 Filter::make('tanggal')
                     ->form([
                         DatePicker::make('tanggal')
@@ -143,6 +172,16 @@ class JurnalKasTable
                     ->visible(fn() => auth()->user()?->role === 'bendahara'),
 
                 BulkActionGroup::make([
+                    BulkAction::make('approveSelected')
+                        ->label('Approve Selected')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(function (Collection $records) {
+                            $records
+                                ->where('status', 'waiting_approval')
+                                ->each
+                                ->update(['status' => 'approved']);
+                        }),
                     DeleteBulkAction::make(),
                 ]),
             ]);

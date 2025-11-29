@@ -10,9 +10,13 @@ class JurnalKas extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nama',
+        'no_tlp',
+        'email',
         'tanggal',
         'keterangan',
         'petugas',
+        'status',
         'nominal',
         'jenis_transaksi_id',
         'metode',
