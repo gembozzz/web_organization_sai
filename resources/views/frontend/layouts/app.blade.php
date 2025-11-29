@@ -132,11 +132,11 @@
                                                     </div>
                                                     <div
                                                         class="w-100 d-flex align-items-center justify-content-between">
-                                                        <a href="/history">
+                                                        <a href="{{ route('donasi.create') }}">
                                                             <div>
                                                                 <h6
                                                                     class="dropdown-header d-flex justify-content-cente align-items-center p-0">
-                                                                    Sejarah Organasasi</h6>
+                                                                    Donasi Sekarang</h6>
                                                             </div>
                                                         </a>
                                                     </div>
@@ -148,11 +148,11 @@
                                                     </div>
                                                     <div
                                                         class="w-100 d-flex align-items-center justify-content-between">
-                                                        <a href="/structure">
+                                                        <a href="{{ route('donatur.index') }}">
                                                             <div>
                                                                 <h6
                                                                     class="dropdown-header d-flex justify-content-cente align-items-center p-0">
-                                                                    Struktur Organisasi</h6>
+                                                                    Daftar Donatur</h6>
                                                             </div>
                                                         </a>
                                                     </div>
